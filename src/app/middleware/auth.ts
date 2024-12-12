@@ -6,6 +6,7 @@ const JWT_SECRET = config.jwt_secret as string;
 
 const authUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        console.log(req.headers.authorization)
         const authHeader = req.headers.authorization as string;
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             throw new Error("Access denied. No token provided or invalid format.");
