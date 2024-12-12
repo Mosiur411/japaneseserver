@@ -9,12 +9,11 @@ const JWT_SECRET = config.jwt_secret as string
 
 const createUser = trycatchAsyns(async (req, res) => {
     const data = req.body;
-    console.log('data',data)
-/*     if (!req.file) {
-        throw new Error("Profile photo is required!");
-    }
-    const filepath = (req.file as any).filename;
-    const profilePhotoPath = `/uploads/profilePhoto/${filepath}`; */
+    /*     if (!req.file) {
+            throw new Error("Profile photo is required!");
+        }
+        const filepath = (req.file as any).filename;
+        const profilePhotoPath = `/uploads/profilePhoto/${filepath}`; */
     const user = new UserModel(data);
     const result = await user.save();;
     sentResponse(res, {
@@ -39,7 +38,7 @@ const getUser = trycatchAsyns(async (req, res) => {
 
     // Fetch lessons with pagination and sorting
     const result = await UserModel.find({})
-        .sort(sort)
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit);
 
@@ -53,7 +52,7 @@ const getUser = trycatchAsyns(async (req, res) => {
         statusCode: 200,
         success: true,
         message: 'User fetched successfully.',
-        data: {result,totalPages: Math.ceil(totaluser / limit),},
+        data: { result, totalPages: Math.ceil(totaluser / limit), },
     });
 
 });
@@ -76,11 +75,11 @@ const profileUpdateUser = trycatchAsyns(async (req, res) => {
     if (!_id || !data) {
         throw new Error("Not body emtry data");
     }
-   /*  if (req.file) {
-        const filepath = (req.file as any).filename;
-        const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
-        data={...data,profilePhoto: profilePhotoPath,}
-    } */
+    /*  if (req.file) {
+         const filepath = (req.file as any).filename;
+         const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
+         data={...data,profilePhoto: profilePhotoPath,}
+     } */
     const updatedUser = await UserModel.findByIdAndUpdate(_id, data, { new: true, runValidators: true });
 
     sentResponse(res, {
@@ -136,7 +135,8 @@ const loginUser = trycatchAsyns(async (req, res) => {
             _id: user._id,
             email: user.email,
             name: user.name,
-            role: user.role
+            role: user.role,
+            profilePhoto: user.profilePhoto,
         },
         JWT_SECRET,
         { expiresIn: "1h" }
@@ -145,7 +145,7 @@ const loginUser = trycatchAsyns(async (req, res) => {
         statusCode: 200,
         success: true,
         message: 'Login successful',
-        data: { token },
+        data: { token, user },
     });
 
 
@@ -155,7 +155,7 @@ const deleteUser = trycatchAsyns(async (req, res) => {
     if (!_id) {
         throw new Error("Invalid user Id");
     }
-    const result = await UserModel.deleteOne({_id:_id});
+    const result = await UserModel.deleteOne({ _id: _id });
     sentResponse(res, {
         statusCode: 201,
         success: true,
@@ -180,4 +180,4 @@ const logoutUser = trycatchAsyns(async (req, res) => {
         data: { token },
     });
 });
-export const UserController = { adminUpdateUser, createUser, loginUser, logoutUser, profileUser, profileUpdateUser, getUser, singleUser,deleteUser}
+export const UserController = { adminUpdateUser, createUser, loginUser, logoutUser, profileUser, profileUpdateUser, getUser, singleUser, deleteUser }

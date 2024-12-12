@@ -19,7 +19,7 @@ const getTutorial = trycatchAsyns(async (req, res) => {
     // Extract query parameters
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
-    const sort = req.query.sort as string || "createdAt";
+    const sort = req.query.sort as string || -1;
     if (!page || !limit || !sort) {
         throw new Error("page and limit or sort qurey required!");
     }
@@ -29,7 +29,7 @@ const getTutorial = trycatchAsyns(async (req, res) => {
 
     // Fetch lessons with pagination and sorting
     const tutorial = await TutorialModel.find({})
-        .sort(sort)
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit);
 
@@ -89,4 +89,4 @@ const deleteTutorial = trycatchAsyns(async (req, res) => {
 
 
 
-export const TutorialController = { createTutorial,getTutorial,updateTutorial,getSingleTutorial,deleteTutorial }
+export const TutorialController = { createTutorial, getTutorial, updateTutorial, getSingleTutorial, deleteTutorial }

@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post('/create', Auth.authUser, Auth.onlyAdmin, VocabularyController.createVocabulary)
 router.get('/', Auth.authUser, VocabularyController.getVocabulary)
-router.get('/single/:lessonNo', Auth.authUser, Auth.onlyAdmin, VocabularyController.getSingleVocabulary)
+router.get('/single/:lessonNo', Auth.authUser, VocabularyController.getSingleVocabulary)
 router.put('/update', Auth.authUser, Auth.onlyAdmin, VocabularyController.updateVocabulary)
 router.delete('/delete/:_id', Auth.authUser, Auth.onlyAdmin, VocabularyController.deleteVocabulary)
 

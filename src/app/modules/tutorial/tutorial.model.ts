@@ -18,13 +18,7 @@ const tutorialSchema = new Schema<TTutorial>(
         type: String,
         required: [true, 'YouTube link is required'],
         minlength: [5, 'YouTube link must be at least 5 characters long'],
-        validate: {
-          validator: function (value: string) {
-            const regex = /^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/;
-            return regex.test(value);
-          },
-          message: 'Invalid YouTube link format.',
-        },}
+       }
   },
   {
     timestamps: true,

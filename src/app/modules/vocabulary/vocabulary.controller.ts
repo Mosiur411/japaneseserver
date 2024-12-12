@@ -41,7 +41,7 @@ const getVocabulary = trycatchAsyns(async (req, res) => {
 
     // Fetch lessons with pagination and sorting
     const vocabular = await VocabularyModel.find({})
-        .sort(sort)
+        .sort({_id:-1})
         .skip(skip)
         .limit(limit);
 
