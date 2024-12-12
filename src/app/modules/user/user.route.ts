@@ -9,11 +9,11 @@ const router = express.Router();
 router.post("/login", UserController.loginUser);
 router.post("/logout", UserController.logoutUser);
 /* user */
-router.post("/register", upload.single("profilePhoto"), UserController.createUser);
+router.post("/register",  UserController.createUser);//upload.single("profilePhoto"),
 router.get("/", Auth.authUser, Auth.onlyAdmin, UserController.getUser);
 router.get("/single/:_id", Auth.authUser, Auth.onlyAdmin, UserController.singleUser);
 router.get("/profile", Auth.authUser, UserController.profileUser);
-router.put("/profile-update", upload.single("profilePhoto"), Auth.authUser, UserController.profileUpdateUser);
+router.put("/profile-update", Auth.authUser, UserController.profileUpdateUser);//upload.single("profilePhoto"), 
 router.put("/admin/profile-update", Auth.authUser, Auth.onlyAdmin, UserController.adminUpdateUser);
 router.delete("/delete/:_id", Auth.authUser, Auth.onlyAdmin, UserController.deleteUser);
 

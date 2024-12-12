@@ -9,15 +9,13 @@ const JWT_SECRET = config.jwt_secret as string
 
 const createUser = trycatchAsyns(async (req, res) => {
     const data = req.body;
-    if (!req.file) {
+    console.log('data',data)
+/*     if (!req.file) {
         throw new Error("Profile photo is required!");
     }
     const filepath = (req.file as any).filename;
-    const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
-    const user = new UserModel({
-        ...data,
-        profilePhoto: profilePhotoPath,
-    });
+    const profilePhotoPath = `/uploads/profilePhoto/${filepath}`; */
+    const user = new UserModel(data);
     const result = await user.save();;
     sentResponse(res, {
         statusCode: 201,
@@ -78,11 +76,11 @@ const profileUpdateUser = trycatchAsyns(async (req, res) => {
     if (!_id || !data) {
         throw new Error("Not body emtry data");
     }
-    if (req.file) {
+   /*  if (req.file) {
         const filepath = (req.file as any).filename;
         const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
         data={...data,profilePhoto: profilePhotoPath,}
-    }
+    } */
     const updatedUser = await UserModel.findByIdAndUpdate(_id, data, { new: true, runValidators: true });
 
     sentResponse(res, {

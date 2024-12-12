@@ -12,8 +12,8 @@ app.use(cors());
 
 
 // Serve static files
-const staticPath = path.join(__dirname, "../uploads");
-app.use("./app/uploads", express.static(staticPath));
+// const staticPath = path.join(__dirname, "../uploads");
+// app.use("./app/uploads", express.static(staticPath));
 
 // route
 app.get('/',(req:Request,res:Response)=>{
