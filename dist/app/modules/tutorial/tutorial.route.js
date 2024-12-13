@@ -9,7 +9,7 @@ const auth_1 = require("../../middleware/auth");
 const tutorial_controller_1 = require("./tutorial.controller");
 const router = express_1.default.Router();
 router.post('/create', auth_1.Auth.authUser, auth_1.Auth.onlyAdmin, tutorial_controller_1.TutorialController.createTutorial);
-router.get('/', auth_1.Auth.authUser, tutorial_controller_1.TutorialController.getTutorial);
+router.get('/', tutorial_controller_1.TutorialController.getTutorial);
 router.get('/single/:_id', auth_1.Auth.authUser, auth_1.Auth.onlyAdmin, tutorial_controller_1.TutorialController.getSingleTutorial);
 router.put('/update', auth_1.Auth.authUser, auth_1.Auth.onlyAdmin, tutorial_controller_1.TutorialController.updateTutorial);
 router.delete('/delete/:_id', auth_1.Auth.authUser, auth_1.Auth.onlyAdmin, tutorial_controller_1.TutorialController.deleteTutorial);
