@@ -42,7 +42,7 @@ const getLesson = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0, v
     const skip = (page - 1) * limit;
     // Fetch lessons with pagination and sorting
     const lessons = yield lesson_model_1.LessonModel.find({})
-        .sort(sort)
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit);
     // Count total documents for pagination metadata

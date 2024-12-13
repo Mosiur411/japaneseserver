@@ -9,10 +9,20 @@ const vocabularySchema = new mongoose_1.Schema({
         minlength: [2, 'Word must be at least 2 characters long'],
         maxlength: [50, 'Word cannot exceed 50 characters'],
     },
-    description: {
+    meaning: {
         type: String,
-        required: [true, 'Description is required'],
-        minlength: [5, 'Description must be at least 5 characters long'],
+        required: [true, 'meaning is required'],
+        minlength: [1, 'meaning must be at least 5 characters long'],
+    },
+    when_to_say: {
+        type: String,
+        required: [true, 'meaning is required'],
+        minlength: [1, 'meaning must be at least 5 characters long'],
+    },
+    pronunciation: {
+        type: String,
+        required: [true, 'meaning is required'],
+        minlength: [1, 'meaning must be at least 5 characters long'],
     },
     lessonNo: {
         type: String,

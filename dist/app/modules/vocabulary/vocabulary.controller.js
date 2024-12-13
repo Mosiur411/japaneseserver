@@ -51,7 +51,7 @@ const getVocabulary = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 
     const skip = (page - 1) * limit;
     // Fetch lessons with pagination and sorting
     const vocabular = yield vocabulary_model_1.VocabularyModel.find({})
-        .sort(sort)
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit);
     // Count total documents for pagination metadata

@@ -33,7 +33,7 @@ const getTutorial = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0,
     // Extract query parameters
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const sort = req.query.sort || "createdAt";
+    const sort = req.query.sort || -1;
     if (!page || !limit || !sort) {
         throw new Error("page and limit or sort qurey required!");
     }
@@ -41,7 +41,7 @@ const getTutorial = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0,
     const skip = (page - 1) * limit;
     // Fetch lessons with pagination and sorting
     const tutorial = yield tutorial_model_1.TutorialModel.find({})
-        .sort(sort)
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit);
     // Count total documents for pagination metadata

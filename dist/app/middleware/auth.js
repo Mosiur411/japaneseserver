@@ -18,6 +18,7 @@ const config_1 = __importDefault(require("../config"));
 const JWT_SECRET = config_1.default.jwt_secret;
 const authUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.headers.authorization);
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             throw new Error("Access denied. No token provided or invalid format.");

@@ -22,12 +22,12 @@ const snedResponse_1 = __importDefault(require("../../utils/snedResponse"));
 const JWT_SECRET = config_1.default.jwt_secret;
 const createUser = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
-    if (!req.file) {
-        throw new Error("Profile photo is required!");
-    }
-    const filepath = req.file.filename;
-    const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
-    const user = new user_model_1.UserModel(Object.assign(Object.assign({}, data), { profilePhoto: profilePhotoPath }));
+    /*     if (!req.file) {
+            throw new Error("Profile photo is required!");
+        }
+        const filepath = (req.file as any).filename;
+        const profilePhotoPath = `/uploads/profilePhoto/${filepath}`; */
+    const user = new user_model_1.UserModel(data);
     const result = yield user.save();
     ;
     (0, snedResponse_1.default)(res, {
@@ -49,7 +49,7 @@ const getUser = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0, voi
     const skip = (page - 1) * limit;
     // Fetch lessons with pagination and sorting
     const result = yield user_model_1.UserModel.find({})
-        .sort(sort)
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit);
     // Count total documents for pagination metadata
@@ -81,11 +81,11 @@ const profileUpdateUser = (0, trycatchAsyns_1.default)((req, res) => __awaiter(v
     if (!_id || !data) {
         throw new Error("Not body emtry data");
     }
-    if (req.file) {
-        const filepath = req.file.filename;
-        const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
-        data = Object.assign(Object.assign({}, data), { profilePhoto: profilePhotoPath });
-    }
+    /*  if (req.file) {
+         const filepath = (req.file as any).filename;
+         const profilePhotoPath = `/uploads/profilePhoto/${filepath}`;
+         data={...data,profilePhoto: profilePhotoPath,}
+     } */
     const updatedUser = yield user_model_1.UserModel.findByIdAndUpdate(_id, data, { new: true, runValidators: true });
     (0, snedResponse_1.default)(res, {
         statusCode: 201,
@@ -137,13 +137,14 @@ const loginUser = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0, v
         _id: user._id,
         email: user.email,
         name: user.name,
-        role: user.role
+        role: user.role,
+        profilePhoto: user.profilePhoto,
     }, JWT_SECRET, { expiresIn: "1h" });
     (0, snedResponse_1.default)(res, {
         statusCode: 200,
         success: true,
         message: 'Login successful',
-        data: { token },
+        data: { token, user },
     });
 }));
 const deleteUser = (0, trycatchAsyns_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
