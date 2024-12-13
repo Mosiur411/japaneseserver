@@ -4,6 +4,14 @@
 The **Japanese Vocabulary Learning Application** is a management system with features such as user and admin tracking, private route handling, and CRUD (Create, Read, Update, Delete) operations for user lessons, vocabulary, and tutorials.
 
 ---
+## Auth Infomation
+### Admin Info:
+- **Email:**  admin@gmail.com
+- **Password**  Admin@12
+### User Info:
+- **Email:**   user@gmail.com
+- **Password**  User@12
+
 
 ## Features
 1. **User Management**: Manage user roles and access permissions.  
@@ -12,6 +20,7 @@ The **Japanese Vocabulary Learning Application** is a management system with fea
 4. **Tutorial Management**: Manage tutorial resources for users.  
 5. **Error Handling**: Error Handling.  
 6. **Validation**: Validation.  
+6. **JWT**: JWT Token Create.  
 
 ---
 
