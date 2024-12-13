@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import router from './app/routes';
-import path from "path";
+
 import notFoundHandler from './app/utils/notFoundHandler';
 import errorHandler from './app/utils/errorHandler';
 
